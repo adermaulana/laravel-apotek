@@ -82,6 +82,25 @@ class ObatController extends Controller
         return view('keranjang', compact('keranjangItems', 'totalKeranjang'));
     }
 
+    public function hapusKeranjang($id)
+    {
+        try {
+            $keranjangItem = Keranjang::findOrFail($id);
+
+            // Restore the stock before deleting
+            $obat = Obat::findOrFail($keranjangItem->id_obat);
+            $obat->stok_obat += $keranjangItem->jumlah_keranjang;
+            $obat->save();
+
+            // Delete the cart item
+            $keranjangItem->delete();
+
+            return redirect()->route('keranjang')->with('success', 'Produk berhasil dihapus dari keranjang.');
+        } catch (\Exception $e) {
+            return redirect()->route('keranjang')->with('error', 'Terjadi kesalahan saat menghapus produk dari keranjang.');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */

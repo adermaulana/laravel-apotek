@@ -68,7 +68,7 @@ Route::get('/obat', [ObatController::class, 'index'])->name('obat');
 Route::get('/obat/{id}', [ObatController::class, 'detail'])->name('obat.detail');
 Route::post('/obat/add-to-cart', [ObatController::class, 'addToCart'])->name('obat.addToCart');
 Route::get('/keranjang', [ObatController::class, 'keranjang'])->name('keranjang');
-Route::get('/keranjang/{id}', [ObatController::class, 'keranjang'])->name('keranjang.hapus');
+Route::get('/keranjang/hapus/{id}', [ObatController::class, 'hapusKeranjang'])->name('keranjang.hapus');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
